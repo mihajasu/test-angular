@@ -19,7 +19,7 @@
                 <div class="pb-2">
                     <button  class="btn btn-primary w-100 font-weight-bold mt-2" (click)="loginUser()">
                         <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                        <i class="fa fa-unlock"></i> &nbsp;
+                        <i class="fa fa-unlock" *ngIf="!loading"></i> &nbsp;
                         Se connecter
                     </button>
                     

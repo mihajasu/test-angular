@@ -38,9 +38,13 @@
                 <div class="pb-2">
                     <button  class="btn btn-primary w-100 font-weight-bold mt-2" >
                         <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-                        <i *ngIf="!loading" class="fa fa-lock"></i> &nbsp;
+                        <i *ngIf="!loading" class="fa fa-check"></i> &nbsp;
                         Enregister
                     </button>
+                </div>
+
+                <div class="pt-4 text-center">
+                    <a [routerLink]="['/']" routerLinkActive="router-link-active" >Se connecter</a>
                 </div>
             </div>
         </div>
