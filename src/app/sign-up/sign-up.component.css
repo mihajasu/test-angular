@@ -1,0 +1,8 @@
+.invalid-form{
+    border-color: #dc3545; 
+}
+
+.invalid-form::placeholder {
+    color: #dc3545;
+    opacity: 1;
+}

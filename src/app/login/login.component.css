@@ -1,0 +1,29 @@
+body{
+    background: #c9ccd1; 
+}
+.form-style input{
+    border:0;
+    height:50px;
+    border-radius:0;
+    border-bottom:1px solid #ebebeb;	
+}
+
+.form-style input:focus{
+    border-bottom:1px solid #007bff;	
+    box-shadow:none;
+    outline:0;
+    background-color:#ebebeb;	
+}
+
+button{
+    height:50px;	
+}
+
+.invalid-form{
+    border-color: #dc3545; 
+}
+
+.invalid-form::placeholder {
+    color: #dc3545;
+    opacity: 1;
+}

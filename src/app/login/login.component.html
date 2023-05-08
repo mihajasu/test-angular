@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="row m-5 no-gutters shadow-lg">
+        <div class="col-md-6 d-none d-md-block">
+            <img src="assets/login.jpg" class="img-fluid" style="min-height:100%;" />
+        </div>
+        <div class="col-md-6 bg-white p-5">
+            <h3 class="pb-3">Bienvenue</h3>
+            <div class="form-style">
+                <div class="form-group pb-3">    
+                    <input type="text" placeholder="Utilisateur *" [formControl]="usernameCtrl" class="form-control" [ngClass]="{ 'invalid-form': submitted && usernameCtrl.errors?.required }" />
+                    <small class="text-danger" *ngIf=" submitted && usernameCtrl.errors?.required">Utilisateur requis</small>  
+                </div>
+
+                <div class="form-group pb-3">   
+                    <input type="password" placeholder="Mot de passe *" [formControl]="passwordCtrl" class="form-control" [ngClass]="{ 'invalid-form': submitted && passwordCtrl.errors?.required }" />
+                    <small class="text-danger" *ngIf=" submitted && passwordCtrl.errors?.required">Mot de passe requise</small>
+                </div>
+
+                <div class="pb-2">
+                    <button  class="btn btn-primary w-100 font-weight-bold mt-2" (click)="loginUser()">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                        <i class="fa fa-unlock"></i> &nbsp;
+                        Se connecter
+                    </button>
+                    
+                    <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+                </div>
+                <div class="pt-4 text-center">
+                    <a [routerLink]="['/register']" routerLinkActive="router-link-active" >Créer un compte</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
