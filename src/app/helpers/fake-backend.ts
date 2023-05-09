@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, mergeMap, materialize, dematerialize } from 'rxjs/operators';
+import { User } from '../user';
 
 
-const users: any = [{ id: 1, username: 'test', password: 'test', firstName: 'Test', lastName: 'User', mail:'a@gmail.com' }];
+let usersFilter: User[] = [];
 
 @Injectable()
 export class FakeBackendInterceptor implements HttpInterceptor {
@@ -29,11 +30,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             }    
         }
 
-        // route functions
-
+        // authentications
         function authenticate() {
-            const { username, password } = body;
-            const user = users.find((x:any) => x.username === username && x.password === password);
+            const { username, password , users} = body;
+            usersFilter = users;
+            const user = users.find((x:User) => x.username === username && x.password === password);
             
             if (!user) return error('Utilisateur ou mot de passe incorrect');
             return ok({
@@ -48,7 +49,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
 
         function getUsers() {
             if (!isLoggedIn()) return unauthorized();
-            return ok(users);
+            return ok(usersFilter);
         }
 
         function ok(body?:any) {

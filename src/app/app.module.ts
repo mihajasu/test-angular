@@ -8,10 +8,12 @@ import { HomeComponent } from './home/home.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from 'src/app/helpers/jwt.interceptor';
-import { AuthenticationService } from './authentication.service';
+import { AuthenticationService } from './services/authentication.service';
 import { fakeBackendProvider } from 'src/app/helpers/fake-backend';
 import { HttpClientModule } from '@angular/common/http';
 import { SignUpComponent } from './sign-up/sign-up.component'
+import { InMemoryEditorialService } from './helpers/list-users.service';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { SignUpComponent } from './sign-up/sign-up.component'
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryEditorialService, {delay : 100}),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

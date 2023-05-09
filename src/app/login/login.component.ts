@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { AuthenticationService } from '../authentication.service';
+import { AuthenticationService } from '../services/authentication.service';
 import * as _ from 'lodash';
+import { SignupService } from '../services/signup.service';
+import { User } from '../user';
 
 @Component({
   selector: 'app-login',
@@ -18,11 +20,13 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   error = '';
+  
+  users: User[] = [];
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private signupService: SignupService
   ) {
     // Redirection si utilisateur déjà connecté
     if (this.authenticationService.currentUserValue && !_.isEmpty(this.authenticationService.currentUserValue)) { 
@@ -31,12 +35,13 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.signupService.getAllUsers().subscribe(users => (this.users = users));
   }
 
   loginUser() {
     this.submitted = true;
     this.loading = true;
-    this.authenticationService.login(this.usernameCtrl.value, this.passwordCtrl.value)
+    this.authenticationService.login(this.usernameCtrl.value, this.passwordCtrl.value, this.users)
       .pipe(first())
       .subscribe(
           data => {
