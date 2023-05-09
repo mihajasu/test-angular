@@ -13,7 +13,7 @@ export class SignUpComponent implements OnInit {
   usernameCtrl: FormControl = new FormControl( '', Validators.required);
   firstNameCtrl: FormControl = new FormControl();
   lastNameCtrl: FormControl = new FormControl();
-  passwordCtrl: FormControl = new FormControl( '', Validators.required);
+  passwordCtrl: FormControl = new FormControl( '', [Validators.required,Validators.minLength(5)]);
   mailCtrl: FormControl = new FormControl( '', [Validators.required,Validators.email]);
   passwordConfirmeCtrl: FormControl = new FormControl( '', Validators.required);
 
@@ -29,7 +29,6 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit(): void {
     this.signupService.getAllUsers().subscribe(users => (this.users = users));
-    console.log(this.users);
     
   }
 
@@ -57,5 +56,13 @@ export class SignUpComponent implements OnInit {
       this.passwordCtrl.reset();
       this.mailCtrl.reset();
     });
+  }
+
+  checkRegistration() {
+    /*
+      desc : Vérifier si les informtions sont correcte
+    */
+
+    return this.usernameCtrl.valid && this.passwordConfirmeCtrl.valid && this.passwordCtrl.valid && this.mailCtrl.valid && this.passwordConfirmeCtrl.value == this.passwordCtrl.value
   }
 }

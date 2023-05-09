@@ -1,10 +1,45 @@
-<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
-    <div class="navbar-nav">
-        <a class="nav-item nav-link" routerLink="/" routerLinkActive="active">Acceuil</a>
-        <a class="nav-item nav-link" (click)="logout()">Se déconneter</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-md-auto gap-2">
+          <li class="nav-item rounded">
+            <a class="nav-link active" aria-current="page" routerLink="/" routerLinkActive="active"><i class="fa fa-home"></i> Acceuil</a>
+          </li>
+          <li class="nav-item rounded">
+            <a class="nav-link" href="#"><i class="fa fa-phone"></i> Contact</a>
+          </li>
+          <li class="nav-item rounded">
+            <a class="nav-link" (click)="logout()"><i class="fa fa-sign-out"></i> Se déconneter</a>
+          </li>
+        </ul>
+      </div>
     </div>
 </nav>
 
-<div class="container">
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="card py-4">
 
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="round-image">
+                <img src="assets/user.png" class="rounded-circle" width="97">
+            </div>
+        </div>
+
+        <div class="text-center">
+
+            <h4 class="mt-3">{{currentUser.firstName}} {{currentUser.lastName}}</h4>
+            <span>{{currentUser.username}}</span>
+
+            <div class="px-5">
+                <p class="content"> {{currentUser.mail}} </p>
+                <button class="btn btn-primary follow">Bienvenue</button>
+            </div>
+         
+        </div>
+      
+    </div>
 </div>

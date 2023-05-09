@@ -1,9 +1,9 @@
 <div class="container">
-    <div class="row m-5 no-gutters shadow-lg">
+    <div class="row m-3 no-gutters shadow-lg">
         <div class="col-md-6 d-none d-md-block">
             <img src="assets/signup.png" class="img-fluid" style="min-height:100%;" />
         </div>
-        <div class="col-md-6 bg-white p-5">
+        <div class="col-md-6 bg-white p-3">
             <h3 class="pb-3">Créer un compte</h3>
             <div class="form-style">
                 <div class="form-group pb-3">    
@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="form-group pb-3">    
-                    <input type="text" placeholder="Adresse mail *" [formControl]="mailCtrl" class="form-control" [ngClass]="{ 'invalid-form': mailCtrl.errors?.required }" />
+                    <input type="text" placeholder="Adresse mail *" [formControl]="mailCtrl" class="form-control" [ngClass]="{ 'invalid-form': mailCtrl.errors?.required || mailCtrl.errors?.email }" />
                     <small class="text-danger" *ngIf="mailCtrl.errors?.required">Adresse mail requise</small>
                     <small class="text-danger"  *ngIf="mailCtrl.errors?.email">Veuillez entrer une adresse mail valide</small>   
                 </div>
@@ -28,15 +28,17 @@
                 <div class="form-group pb-3">   
                     <input type="password" placeholder="Mot de passe *" [formControl]="passwordCtrl" class="form-control" [ngClass]="{ 'invalid-form': passwordCtrl.errors?.required }" />
                     <small class="text-danger" *ngIf="passwordCtrl.errors?.required">Mot de passe requise</small>
+                    <small class="text-danger" *ngIf="passwordCtrl.errors?.minlength">Le mot de passe doit contenir au moins 5 caractéres</small>
                 </div>
                 
                 <div class="form-group pb-3">   
-                    <input type="password" placeholder="Confirmer le mot de passe *" [formControl]="passwordConfirmeCtrl" class="form-control" [ngClass]="{ 'invalid-form': passwordConfirmeCtrl.errors?.required }" />
+                    <input type="password" placeholder="Confirmer le mot de passe *" [formControl]="passwordConfirmeCtrl" class="form-control" [ngClass]="{ 'invalid-form': passwordConfirmeCtrl.errors?.required || passwordConfirmeCtrl.value != passwordCtrl.value }" />
                     <small class="text-danger" *ngIf="passwordConfirmeCtrl.errors?.required">Veuillez confirmer le mot de passe</small>
+                    <small class="text-danger" *ngIf="!passwordConfirmeCtrl.errors?.required && passwordConfirmeCtrl.value != passwordCtrl.value">Mot de passe non confirmé</small>
                 </div>
 
                 <div class="pb-2">
-                    <button  class="btn btn-primary w-100 font-weight-bold mt-2" (click)="signup()">
+                    <button  class="btn btn-primary w-100 font-weight-bold mt-2" (click)="signup()" [disabled]="!checkRegistration()">
                         <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
                         <i *ngIf="!loading" class="fa fa-check"></i> &nbsp;
                         Enregister

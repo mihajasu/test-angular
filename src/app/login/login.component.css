@@ -1,6 +1,9 @@
 body{
-    background: #c9ccd1; 
+    background-color:#eee;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
 }
+
 .form-style input{
     border:0;
     height:50px;
