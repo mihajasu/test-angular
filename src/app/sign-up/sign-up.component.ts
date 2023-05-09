@@ -21,6 +21,8 @@ export class SignUpComponent implements OnInit {
 
   users: User[] = [];
 
+  error: string = '';
+
   constructor(
     
     private router: Router,
@@ -44,18 +46,30 @@ export class SignUpComponent implements OnInit {
       mail: this.mailCtrl.value
     }
 
-    this.signupService.createUser(user).subscribe(user => {
-      this.users.push(user);
-      this.router.navigate(['/']);
+    // Si username ou mot de passe déjà  utilisé
+    let usernameCHeck = this.users.find(el => el.username == this.usernameCtrl.value);
+    let passwordCHeck = this.users.find(el => el.password == this.passwordCtrl.value);
 
-      // Effacer les valeurs
-      this.firstNameCtrl.reset();
-      this.lastNameCtrl.reset();
-      this.usernameCtrl.reset();
-      this.passwordConfirmeCtrl.reset();
-      this.passwordCtrl.reset();
-      this.mailCtrl.reset();
-    });
+    if (usernameCHeck || passwordCHeck) {
+      this.error = usernameCHeck && passwordCHeck ? "Nom d'utilisateur et mot de passe déjà utilisé" : usernameCHeck ? "Nom d'utilisateur déjà utilisé" : "Mot de passe déjà utilisé" ;
+    } 
+    // Sinon, on enregistre l'information
+    else {
+      this.signupService.createUser(user).subscribe(user => {
+        this.users.push(user);
+        this.router.navigate(['/']);
+  
+        // Effacer les valeurs
+        this.firstNameCtrl.reset();
+        this.lastNameCtrl.reset();
+        this.usernameCtrl.reset();
+        this.passwordConfirmeCtrl.reset();
+        this.passwordCtrl.reset();
+        this.mailCtrl.reset();
+      });
+    }
+
+   
   }
 
   checkRegistration() {

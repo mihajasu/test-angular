@@ -43,6 +43,8 @@
                         <i *ngIf="!loading" class="fa fa-check"></i> &nbsp;
                         Enregister
                     </button>
+
+                    <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
                 </div>
 
                 <div class="pt-4 text-center">
